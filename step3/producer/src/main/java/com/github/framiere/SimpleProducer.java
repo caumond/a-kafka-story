@@ -9,6 +9,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class SimpleProducer {
+    private static String[] strValues = {"Anthony", "Coucou", "moi"};
+
     public static void main(String[] args) throws InterruptedException {
         Properties props = new Properties();
 
@@ -19,8 +21,10 @@ public class SimpleProducer {
         System.out.println("Sending data to `sample` topic");
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             int i = 0;
+            //noinspection InfiniteLoopStatement
             while (true) {
-                ProducerRecord<String, String> record = new ProducerRecord<>("sample", "key " + i, "Value " + i);
+                ProducerRecord<String, String> record =
+                        new ProducerRecord<>("sample", "key " + i, "Value " + strValues[i%3]);
                 System.out.println("Sending " + record.key() + " " + record.value());
                 producer.send(record);
                 i++;
