@@ -24,7 +24,7 @@ public class SimpleProducer {
             //noinspection InfiniteLoopStatement
             while (true) {
                 ProducerRecord<String, String> record =
-                        new ProducerRecord<>("sample", "key " + i, "Value " + strValues[i%3]);
+                        new ProducerRecord<>("sample", "key " + i, "Value " + strValues[i % 3]);
                 System.out.println("Sending " + record.key() + " " + record.value());
                 producer.send(record);
                 i++;
